@@ -2,8 +2,13 @@ TestFlight Plugin for Apache Cordova
 =====================================
 created by Shazron Abdullah
 
-[Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html) except for the TestFlight 2.x SDK
+[Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html) except for the TestFlight SDK
 
+Project includes;
+
+- iOS 2.02 SDK
+
+- Android 1.20 SDK
 
 To add this plugin just type:
 ```cordova plugin add https://github.com/shazron/TestFlightPlugin.git```
