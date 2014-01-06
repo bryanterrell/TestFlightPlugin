@@ -6,9 +6,9 @@ created by Shazron Abdullah
 
 Project includes;
 
-- iOS 2.02 SDK
+- iOS 2.0.2 SDK
 
-- Android 1.20 SDK
+- Android 1.3 SDK
 
 To add this plugin just type:
 ```cordova plugin add https://github.com/shazron/TestFlightPlugin.git```
