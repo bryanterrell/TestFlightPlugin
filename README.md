@@ -6,7 +6,7 @@ created by Shazron Abdullah
 
 Project includes;
 
-- iOS 2.0.2 SDK
+- iOS 2.1.3 SDK
 
 - Android 1.3 SDK
 
