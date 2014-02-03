@@ -1,12 +1,12 @@
 /*
- *  _____          _     ___ _ _       _     _       ___ _             _       
- * /__   \___  ___| |_  / __\ (_) __ _| |__ | |_    / _ \ |_   _  __ _(_)_ __  
- *   / /\/ _ \/ __| __|/ _\ | | |/ _` | '_ \| __|  / /_)/ | | | |/ _` | | '_ \ 
+ *  _____          _     ___ _ _       _     _       ___ _             _
+ * /__   \___  ___| |_  / __\ (_) __ _| |__ | |_    / _ \ |_   _  __ _(_)_ __
+ *   / /\/ _ \/ __| __|/ _\ | | |/ _` | '_ \| __|  / /_)/ | | | |/ _` | | '_ \
  *  / / |  __/\__ \ |_/ /   | | | (_| | | | | |_  / ___/| | |_| | (_| | | | | |
  *  \/   \___||___/\__\/    |_|_|\__, |_| |_|\__| \/    |_|\__,_|\__, |_|_| |_|
- *                              |___/                           |___/         
+ *                               |___/                           |___/
  *
- * @author  	Ally Ogilvie
+ * @author      Ally Ogilvie
  * @copyright   Wizcorp Inc. [ Incorporated Wizards ] 2013
  * @file        TestFlightPlugin.java
  * @about       Plugin for TestFlight SDK.
@@ -21,11 +21,11 @@ import android.util.Log;
 
 public class TestFlightPlugin extends CordovaPlugin {
 
-	private static String TAG = "TestFlightPlugin";
+    private static String TAG = "TestFlightPlugin";
     private static Boolean TAKEOFF = false;
 
-	@Override
-	public boolean execute(String action, final JSONArray args, CallbackContext callbackContext) throws JSONException {
+    @Override
+    public boolean execute(String action, final JSONArray args, CallbackContext callbackContext) throws JSONException {
 
         Log.d(TAG, "[action] ****** " + action );
 
@@ -39,14 +39,14 @@ public class TestFlightPlugin extends CordovaPlugin {
             }
         }
 
-		if (action.equals("addCustomEnvironmentInformation")) {
+        if (action.equals("addCustomEnvironmentInformation")) {
             // TODO:
             // Android API does not exist
             Log.w(TAG, "Android" + action + "API does not exist or not implemented");
 
             PluginResult res = new PluginResult(PluginResult.Status.OK);
             callbackContext.sendPluginResult(res);
-			return true;
+            return true;
 
         } else if (action.equals("takeOff")) {
 
@@ -176,7 +176,7 @@ public class TestFlightPlugin extends CordovaPlugin {
             return true;
         }
 
-		return false;
-	}
+        return false;
+    }
 
 }
