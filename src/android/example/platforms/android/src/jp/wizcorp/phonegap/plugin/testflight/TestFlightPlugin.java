@@ -25,9 +25,10 @@ public class TestFlightPlugin extends CordovaPlugin {
     private static Boolean TAKEOFF = false;
 
 	@Override
-	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+	public boolean execute(String action, final JSONArray args, CallbackContext callbackContext) throws JSONException {
 
         Log.d(TAG, "[action] ****** " + action );
+
         // Rather than write this into every action;
         // Check action is not takeOff then check if we took off successfully
         if (!action.equals("takeOff") && !action.equals("setOptions")) {
@@ -41,29 +42,37 @@ public class TestFlightPlugin extends CordovaPlugin {
 		if (action.equals("addCustomEnvironmentInformation")) {
             // TODO:
             // Android API does not exist
+            Log.w(TAG, "Android" + action + "API does not exist or not implemented");
 
             PluginResult res = new PluginResult(PluginResult.Status.OK);
             callbackContext.sendPluginResult(res);
 			return true;
 
         } else if (action.equals("takeOff")) {
-            PluginResult res;
 
-            // Initialize TestFlight with your app token.
-            if (args.length() > 0) {
-                // Get app token
-                TestFlight.takeOff(cordova.getActivity().getApplication(), (String) args.get(0));
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    PluginResult res;
 
-                if (TestFlight.isActive() ) {
-                    // Set this so our other APIs can error handle better
-                    TAKEOFF = true;
+                    // Initialize TestFlight with your app token.
+                    if (args.length() > 0) {
+                        // Get app token
+                        TestFlight.takeOff(cordova.getActivity().getApplication(), args.getString(0));
+
+                        if (TestFlight.isActive() ) {
+                            // Set this so our other APIs can error handle better
+                            TAKEOFF = true;
+                        }
+                        res = new PluginResult(PluginResult.Status.OK);
+                    } else {
+                        // Missing required parameter!
+                        res = new PluginResult(PluginResult.Status.ERROR, "teamToken property is missing.");
+                    }
+
+                    callbackContext.sendPluginResult(res);
                 }
-                res = new PluginResult(PluginResult.Status.OK);
-            } else {
-                // Missing required parameter!
-                res = new PluginResult(PluginResult.Status.ERROR, "teamToken property is missing.");
-            }
-            callbackContext.sendPluginResult(res);
+            });
+
             return true;
 
         } else if (action.equals("setOptions")) {
@@ -75,30 +84,44 @@ public class TestFlightPlugin extends CordovaPlugin {
             callbackContext.sendPluginResult(res);
 
         } else if (action.equals("passCheckpoint")) {
-            PluginResult res;
-            if (args.length() > 0) {
-                // Get checkpoint name
-                TestFlight.passCheckpoint((String) args.get(0));
-                res = new PluginResult(PluginResult.Status.OK);
-            } else {
-                // Missing required parameter!
-                res = new PluginResult(PluginResult.Status.ERROR, "no checkpoint name to set.");
-            }
-            callbackContext.sendPluginResult(res);
+
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    PluginResult res;
+                    if (args.length() > 0) {
+                        // Get checkpoint name
+                        TestFlight.passCheckpoint(args.getString(0));
+                        res = new PluginResult(PluginResult.Status.OK);
+                    } else {
+                        // Missing required parameter!
+                        res = new PluginResult(PluginResult.Status.ERROR, "no checkpoint name to set.");
+                    }
+
+                    callbackContext.sendPluginResult(res);
+                }
+            });
+
             return true;
 
         } else if (action.equals("remoteLogAsync")) {
-            PluginResult res;
 
-            if (args.length() > 0) {
-                // Get String to log
-                TestFlight.log((String) args.get(0));
-                res = new PluginResult(PluginResult.Status.OK);
-            } else {
-                // Missing required parameter!
-                res = new PluginResult(PluginResult.Status.ERROR, "nothing to log.");
-            }
-            callbackContext.sendPluginResult(res);
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    PluginResult res;
+
+                    if (args.length() > 0) {
+                        // Get String to log
+                        TestFlight.log(args.getString(0));
+                        res = new PluginResult(PluginResult.Status.OK);
+                    } else {
+                        // Missing required parameter!
+                        res = new PluginResult(PluginResult.Status.ERROR, "nothing to log.");
+                    }
+
+                    callbackContext.sendPluginResult(res);
+                }
+            });
+
             return true;
 
         } else if (action.equals("submitFeedback")) {
@@ -130,18 +153,29 @@ public class TestFlightPlugin extends CordovaPlugin {
 
         } else if (action.equals("manuallyStartSession")) {
 
-            TestFlight.startSession();
-            PluginResult res = new PluginResult(PluginResult.Status.OK);
-            callbackContext.sendPluginResult(res);
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    TestFlight.startSession();
+                    PluginResult res = new PluginResult(PluginResult.Status.OK);
+                    callbackContext.sendPluginResult(res);
+                }
+            });
+
             return true;
 
         } else if (action.equals("manuallyEndSession")) {
 
-            TestFlight.endSession();
-            PluginResult res = new PluginResult(PluginResult.Status.OK);
-            callbackContext.sendPluginResult(res);
+            cordova.getThreadPool().execute(new Runnable() {
+                public void run() {
+                    TestFlight.endSession();
+                    PluginResult res = new PluginResult(PluginResult.Status.OK);
+                    callbackContext.sendPluginResult(res);
+                }
+            });
+
             return true;
         }
+
 		return false;
 	}
 
