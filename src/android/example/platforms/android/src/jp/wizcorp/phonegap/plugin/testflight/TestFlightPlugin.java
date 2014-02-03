@@ -25,7 +25,7 @@ public class TestFlightPlugin extends CordovaPlugin {
     private static Boolean TAKEOFF = false;
 
     @Override
-    public boolean execute(String action, final JSONArray args, CallbackContext callbackContext) throws JSONException {
+    public boolean execute(String action, final JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
         Log.d(TAG, "[action] ****** " + action );
 
@@ -54,19 +54,23 @@ public class TestFlightPlugin extends CordovaPlugin {
                 public void run() {
                     PluginResult res;
 
-                    // Initialize TestFlight with your app token.
-                    if (args.length() > 0) {
-                        // Get app token
-                        TestFlight.takeOff(cordova.getActivity().getApplication(), args.getString(0));
+                    try {
+                        // Initialize TestFlight with your app token.
+                        if (args.length() > 0) {
+                            // Get app token
+                            TestFlight.takeOff(cordova.getActivity().getApplication(), args.getString(0));
 
-                        if (TestFlight.isActive() ) {
-                            // Set this so our other APIs can error handle better
-                            TAKEOFF = true;
+                            if (TestFlight.isActive() ) {
+                                // Set this so our other APIs can error handle better
+                                TAKEOFF = true;
+                            }
+                            res = new PluginResult(PluginResult.Status.OK);
+                        } else {
+                            // Missing required parameter!
+                            res = new PluginResult(PluginResult.Status.ERROR, "teamToken property is missing.");
                         }
-                        res = new PluginResult(PluginResult.Status.OK);
-                    } else {
-                        // Missing required parameter!
-                        res = new PluginResult(PluginResult.Status.ERROR, "teamToken property is missing.");
+                    } catch (JSONException e) {
+                        res = new PluginResult(PluginResult.Status.JSON_EXCEPTION);
                     }
 
                     callbackContext.sendPluginResult(res);
@@ -88,13 +92,17 @@ public class TestFlightPlugin extends CordovaPlugin {
             cordova.getThreadPool().execute(new Runnable() {
                 public void run() {
                     PluginResult res;
-                    if (args.length() > 0) {
-                        // Get checkpoint name
-                        TestFlight.passCheckpoint(args.getString(0));
-                        res = new PluginResult(PluginResult.Status.OK);
-                    } else {
-                        // Missing required parameter!
-                        res = new PluginResult(PluginResult.Status.ERROR, "no checkpoint name to set.");
+                    try {
+                        if (args.length() > 0) {
+                            // Get checkpoint name
+                            TestFlight.passCheckpoint(args.getString(0));
+                            res = new PluginResult(PluginResult.Status.OK);
+                        } else {
+                            // Missing required parameter!
+                            res = new PluginResult(PluginResult.Status.ERROR, "no checkpoint name to set.");
+                        }
+                    } catch (JSONException e) {
+                        res = new PluginResult(PluginResult.Status.JSON_EXCEPTION);
                     }
 
                     callbackContext.sendPluginResult(res);
@@ -109,13 +117,17 @@ public class TestFlightPlugin extends CordovaPlugin {
                 public void run() {
                     PluginResult res;
 
-                    if (args.length() > 0) {
-                        // Get String to log
-                        TestFlight.log(args.getString(0));
-                        res = new PluginResult(PluginResult.Status.OK);
-                    } else {
-                        // Missing required parameter!
-                        res = new PluginResult(PluginResult.Status.ERROR, "nothing to log.");
+                    try {
+                        if (args.length() > 0) {
+                            // Get String to log
+                            TestFlight.log(args.getString(0));
+                            res = new PluginResult(PluginResult.Status.OK);
+                        } else {
+                            // Missing required parameter!
+                            res = new PluginResult(PluginResult.Status.ERROR, "nothing to log.");
+                        }
+                    } catch (JSONException e) {
+                        res = new PluginResult(PluginResult.Status.JSON_EXCEPTION);
                     }
 
                     callbackContext.sendPluginResult(res);
