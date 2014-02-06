@@ -71,8 +71,6 @@ public class TestFlightPlugin extends CordovaPlugin {
                         }
                     } catch (JSONException e) {
                         res = new PluginResult(PluginResult.Status.JSON_EXCEPTION);
-                    } catch (RuntimeException e) {
-                        res = new PluginResult(PluginResult.Status.ERROR, e.getMessage());
                     }
 
                     callbackContext.sendPluginResult(res);
