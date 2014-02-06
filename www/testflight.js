@@ -47,7 +47,17 @@ TestFlight.prototype.addCustomEnvironmentInformation = function(successCallback,
  @param teamToken string
  */
 TestFlight.prototype.takeOff = function(successCallback, failureCallback, teamToken) {
-    exec(successCallback, failureCallback, this.serviceName, "takeOff", [ teamToken ]);
+    if (!teamToken) {
+        var errorString = "Invalid App Token: null";
+
+        if (failureCallback) {
+            failureCallback(errorString);
+        } else {
+            console.error(errorString);
+        }
+    } else {
+        exec(successCallback, failureCallback, this.serviceName, "takeOff", [ teamToken ]);
+    }
 };
 
 /*
