@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     id="com.testflightapp.cordova-plugin"
-    version="2.0.0">
+    version="2.1.0">
 
     <name>TestFlight SDK Plugin</name>
     <description>Cordova plugin for the TestFlight SDK 2.0</description>
