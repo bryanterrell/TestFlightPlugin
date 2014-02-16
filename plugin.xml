@@ -52,7 +52,7 @@
         </config-file>
 
         <source-file src="src/android/TestFlightPlugin.java" target-dir="src/jp/wizcorp/phonegap/plugin/testflight" />
-        <source-file src="src/android/example/platforms/android/libs/TestFlightLib.jar" target-dir="libs" />
+        <source-file src="src/android/libs/TestFlightLib.jar" target-dir="libs" />
     </platform>
 
 </plugin>
