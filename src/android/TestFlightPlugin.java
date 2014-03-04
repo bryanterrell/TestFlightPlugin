@@ -67,7 +67,7 @@ public class TestFlightPlugin extends CordovaPlugin {
                             res = new PluginResult(PluginResult.Status.OK);
                         } else {
                             // Missing required parameter!
-                            res = new PluginResult(PluginResult.Status.ERROR, "teamToken property is missing.");
+                            res = new PluginResult(PluginResult.Status.ERROR, "appToken property is missing.");
                         }
                     } catch (JSONException e) {
                         res = new PluginResult(PluginResult.Status.JSON_EXCEPTION);
@@ -137,24 +137,6 @@ public class TestFlightPlugin extends CordovaPlugin {
             return true;
 
         } else if (action.equals("submitFeedback")) {
-            // TODO:
-            // Android API does not exist or not implemented
-            Log.w(TAG, "Android" + action + "API does not exist or not implemented");
-
-            PluginResult res = new PluginResult(PluginResult.Status.OK);
-            callbackContext.sendPluginResult(res);
-            return true;
-
-        } else if (action.equals("setDeviceIdentifier")) {
-            // TODO:
-            // Android API does not exist or not implemented
-            Log.w(TAG, "Android" + action + "API does not exist or not implemented");
-
-            PluginResult res = new PluginResult(PluginResult.Status.OK);
-            callbackContext.sendPluginResult(res);
-            return true;
-
-        } else if (action.equals("setDeviceIdentifierUUID")) {
             // TODO:
             // Android API does not exist or not implemented
             Log.w(TAG, "Android" + action + "API does not exist or not implemented");

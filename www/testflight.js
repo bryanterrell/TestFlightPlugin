@@ -44,10 +44,10 @@ TestFlight.prototype.addCustomEnvironmentInformation = function(successCallback,
 
  @param successCallback function
  @param failureCallback function
- @param teamToken string
+ @param appToken string
  */
-TestFlight.prototype.takeOff = function(successCallback, failureCallback, teamToken) {
-    if (!teamToken) {
+TestFlight.prototype.takeOff = function(successCallback, failureCallback, appToken) {
+    if (!appToken) {
         var errorString = "Invalid App Token: null";
 
         if (failureCallback) {
@@ -56,7 +56,7 @@ TestFlight.prototype.takeOff = function(successCallback, failureCallback, teamTo
             console.error(errorString);
         }
     } else {
-        exec(successCallback, failureCallback, this.serviceName, "takeOff", [ teamToken ]);
+        exec(successCallback, failureCallback, this.serviceName, "takeOff", [ appToken ]);
     }
 };
 
@@ -127,7 +127,8 @@ TestFlight.prototype.submitFeedback = function(successCallback, failureCallback,
   @param deviceIdentifer The current devices device identifier
 */
 TestFlight.prototype.setDeviceIdentifier = function(successCallback, failureCallback, deviceIdentifier) {
-    exec(successCallback, failureCallback, this.serviceName, "setDeviceIdentifier", [ deviceIdentifier ]);
+    console.warn('setDeviceIdentifier() is deprecated');
+    setTimeout(successCallback, 0);
 };
 
 /*
@@ -137,9 +138,10 @@ TestFlight.prototype.setDeviceIdentifier = function(successCallback, failureCall
  @param failureCallback function
 */
 TestFlight.prototype.setDeviceIdentifierUUID = function(successCallback, failureCallback) {
-    exec(successCallback, failureCallback, this.serviceName, "setDeviceIdentifierUUID", [ ]);
+    console.warn('setDeviceIdentifierUUID() is deprecated');
+    setTimeout(successCallback, 0);
 };
-           
+
 /*
  Manually start a session.
 

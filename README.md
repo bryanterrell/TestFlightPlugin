@@ -6,9 +6,9 @@ created by Shazron Abdullah
 
 Project includes;
 
-- iOS 2.1.3 SDK
+- iOS 2.2.3 SDK
 
-- Android 1.3 SDK
+- Android 1.4 SDK
 
 To add this plugin just type:
 ```cordova plugin add https://github.com/shazron/TestFlightPlugin.git```
@@ -20,7 +20,7 @@ To remove this plugin type:
 The plugin's JavaScript functions are called after creating the plugin object thus:
  
         var tf = new TestFlight();
-        tf.takeOff(win, fail, "some_team_token");
+        tf.takeOff(win, fail, "some_app_token");
         
 Make sure you create the object after the "deviceready" event has fired.
  
@@ -46,9 +46,9 @@ and errors can only be gleaned from the run console, so check that for errors.
      
          @param successCallback function
          @param failureCallback function
-         @param teamToken string
+         @param appToken string
          */
-        tf.takeOff(successCallback, failureCallback, 'teamToken');
+        tf.takeOff(successCallback, failureCallback, 'appToken');
     
         /*
          Sets custom options
@@ -96,18 +96,6 @@ and errors can only be gleaned from the run console, so check that for errors.
           @param feedback Your users feedback, method does nothing if feedback is nil
         */
         tf.submitFeedback(successCallback, failureCallback, 'feedback');
-        
-        /*
-         Sets your own Device Identifier. 
-         
-         If you do not provide the identifier you will still see all session data, with
-         checkpoints and logs, but the data will be anonymized.
-         
-          @param successCallback function
-          @param failureCallback function
-          @param deviceIdentifer The current devices device identifier
-        */
-        tf.setDeviceIdentifier(successCallback, failureCallback, 'deviceIdentifier');
 
         /*
          Manually start a session.
